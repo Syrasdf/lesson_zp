@@ -213,11 +213,12 @@ img {
   left: -2em;
   right: -2em;
   top: 45%;
-  background: rgba(159, 248, 137, 0.5);
+  /* background: rgba(159, 248, 137, 0.5); */
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.3em;
   font-size:1.6em;
+  color: #fff;
 }
 .star {
   /* 动画属性
@@ -225,13 +226,81 @@ img {
     10s animation-duration
     ease-out 动画缓动
     animation-timing-function
+    animation-iteration-count: infinite;
   */
-  animation: star 10s ease-out;
+  animation: star 10s ease-out infinite;
+}
+.wars {
+  animation: wars 10s ease-out infinite;
+}
+.byline {
+  animation: move-byline 10s ease-out infinite;
+}
+.byline span{
+  display: inline-block;/*转变为块级元素*/
+  animation: spin-letter 10s ease-out infinite;
+}
+@keyframes move-byline {
+  0% {
+    transform: translateZ(5em);
+  }
+  100% {
+    transform: translateZ(0);
+  }
+}
+@keyframes spin-letter {
+  0%,10%{
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
+  30% {
+    opacity: 1;
+    transform: rotateY(0deg);
+  }
+  70%,86%{
+    transform: rotateY(0);
+    opacity: 1;
+  }
+  95%, 100%{
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
 }
 /* 设计动作 动画的关键帧 */
 @keyframes star {
+  /* 每个关键帧写它的属性 */
   0%{
     opacity: 0;
     transform: scale(1.5) translateY(-1.5em);
+  }
+  20% {
+    opacity: 1;
+
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-1000em);
+  }
+}
+@keyframes wars {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) translateY(0.5em);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  89% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-1000em);
   }
 }
