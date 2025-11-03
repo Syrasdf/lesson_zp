@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>box-sizing</title>
+</head>
+<body>
+  <style>
+    .box {
+      width: 200px;
+      height: 100px;
+      padding: 20px;
+      border: 20px solid black;
+      margin: 20px;
+      box-sizing: border-box;
+    }
+    .border-box {
+      /* 怪异盒模型 先分配，剩余的是内容大小
+         多列式布局有优势
+      */
+      box-sizing: border-box;
+      background-color: rgb(193, 254, 249);
+    }
+    .content-box {
+      box-sizing: content-box;
+      background-color: rgb(254, 193, 193);
+    }
+  </style>
+  <div class="box border-box">Border with border-box</div>
+  <div class="box content-box">Box with content-box</div>
+</body>
+</html>
