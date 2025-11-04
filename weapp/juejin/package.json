@@ -1,0 +1,15 @@
+{
+  "name": "juejin",
+  "version": "1.0.0",
+  "description": "- AppStore 的Native APP（IOS/Android）\r   一个APP，开发两次\r - 微信生态的App\r   借助微信的生态，用前端技术就可以了，不用开发两次\r   - 扫个码\r   - 小程序的小在于小几乎不用安装，扫描及用\r     特别适合线下 O2O 场景  线下商业特别适合",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vant-weapp": "^0.5.29"
+  }
+}
