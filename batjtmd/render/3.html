@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./theme.css">
+  <style>
+    /* ============================================
+       CSS 选择器优先级详解
+       ============================================ */
+
+    /* 【优先级规则】从高到低：
+       1. !important 声明（最高优先级，覆盖所有规则）
+       2. 内联样式（style="..."） - 1000分
+       3. ID 选择器（#id） - 100分
+       4. 类选择器（.class）、属性选择器（[attr]）、伪类（:hover） - 10分
+       5. 标签选择器（p）、伪元素（::before） - 1分
+       6. 通配符（*）、子选择器（>）、相邻选择器（+） - 0分
+    */
+
+    /* 【示例1】ID 选择器 - 100分
+       注意：这个选择器不匹配当前元素，因为元素 id="" 是空的
+       如果元素有 id="p7"，这个规则会生效（但会被 !important 覆盖）*/
+    #p7 {
+      color: pink;
+    }
+
+    /* 【示例2】类选择器 - 10分
+       匹配：元素有 class="highlight"
+       优先级：10分（但会被 !important 覆盖）*/
+    .highlight {
+      color: green;
+    }
+
+    /* 【示例3】标签选择器 - 1分，但使用了 !important
+       匹配：所有 <p> 标签
+       优先级：虽然只有1分，但 !important 使其成为最高优先级
+       结果：这个规则会生效，文字显示为蓝色 */
+    p {
+      color: blue !important;
+    }
+
+    /* ============================================
+       当前元素的最终颜色分析：
+       ============================================
+       元素：<p class="highlight" id="">
+       
+       匹配的选择器：
+       ✓ p { color: blue !important; }  ← 生效（!important 最高优先级）
+       ✓ .highlight { color: green; }   ← 被覆盖
+       ✗ #p7 { color: pink; }           ← 不匹配（id为空）
+       
+       最终颜色：蓝色（blue）
+       ============================================ */
+  </style>
+</head>
+
+<body>
+  <p class="highlight" id="">
+    这段颜色是什么颜色?
+  </p>
+</body>
+
+</html>
