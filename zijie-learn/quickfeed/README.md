@@ -1,0 +1,268 @@
+#  quickfeed
+
+## 技术栈
+- React全家桶
+  - React 组件开发
+  - 组件封装
+      第三方组件库
+      受控和非受控
+      hooks编程 自定义的hooks
+  - React-Router-DOM
+      SPA
+      路由守卫
+      懒加载
+  - Zustand 状态管理
+- mock 接口模拟
+- axios 请求拦截和代理
+- jwt 登录
+- module css
+- vite 配置
+- 性能优化
+    防抖节流
+    useCallback useMemo
+- css 预处理器 stylus
+    flex 弹性布局 
+      transition 
+      transform
+- LLM 大模型
+     - chat 模型
+     - 生图 模型
+     - 语言
+     - coze 工作流 调用
+     - 流式输出 
+- 移动端适配
+    rem
+- 单例模式 设计模式的理解
+- git 提交
+
+## 项目的架构
+- src
+  - components 组件
+  - pages 单页应用
+  - store 状态管理
+  - hooks 自定义hooks
+  - api 接口
+  - mock 模拟数据
+
+## 开发前的准备
+- 安装的包
+    react-router-dom zustand axios
+    react-vant（UI组件库） lib-flexible 移动端适配
+    开发期间的依赖 pnpm i -D 
+    vite-plugin-svg-icons jwt 
+- vite 配置
+    - alias
+    - mock
+    - .env.local
+    llm(大模型) apiKey  
+    - user-scalable=no// 在index.html 中禁掉缩放
+    - <title>旅游APP</title> // 修改标题
+    - css 预处理
+        stylusToast 的通信本质是「发布者触发事件，订阅者（Toast 组件）响应」，用 Mermaid 流程图直观展示：
+        index.css reset
+        box-sizing font-family:-apple-system
+        App.css  全局通用样式
+        module.css  模块化样式
+    - 移动端适配 rem
+        不能用PX 相对单位rem html
+        不同设备上体验要一致
+        不同尺寸手机 等比例缩放
+        设计师设计稿 750px => iphone 4  375pt*2=750 
+        小米
+        css 一行代码 手机不同尺寸 html font -size 等比例
+        layout 
+        flexible.js 阿里 在任何设备上
+        1rem = 屏幕宽度/10
+        在main.jsx 中 import './flexible.js' 
+- lib-flexible
+    阿里开源
+    设置html fontSize = window.innerWidth/10
+    不同设备上 1rem 等比例缩放
+    css px 宽度 = 手机设备宽度 = 375
+    1px = 2发光源
+    750px 设计稿
+
+- 设计稿上的一个盒子的大小？
+  - 1 像素不差的还原设计稿
+  - 设计稿中的像素单位
+  - /75
+
+## 项目亮点
+- 移动端适配
+    - lib-flexible  1rem = 屏幕宽度/10
+    - 设计稿 尺寸是iphone 标准尺寸 750px  背后两个发光源
+    - 前端的职责是还原设计稿
+    - 频繁的单位换算 260/75
+    - 自动化？
+        postcss+postcss-pxtorem
+        postcss 是 css 预编译器，很强大
+        vite 自动读取 postcss.config.js 将css内容编译
+        px => rem
+## git 提交规范
+- 项目初始化
+
+## 功能模块
+- UI 组件库
+    - react-vant 第三方组件库 70%的组件已经有了，不用写
+    - 选择一个适合业务的组件库 或者公司内部的组件库
+- 配置路由及懒加载
+    - 懒加载
+    - 路由守卫
+    - Layout组件
+        - 嵌套路由Outlet 分组路由配置
+        - 网页有几个模板 Layout
+            - Router 不加path对应的路由自由选择
+            - tabbar 模板
+            - blank 模板
+    - tabbar
+        - react-vant + @react-vant/icons
+        - value + onChange 响应式
+        - 直接点击链接分享 active 的设置
+    - chatbot
+        - llm 模块 chat 封装
+        - 迭代chat ，支持任意模型
+- search 
+    - 防抖
+    - api
+         GoogleSuggest
+    - localStorage
+- 瀑布流
+    - 小红书等主流App的内容浏览用户体验产品
+         两列、图片高度不一致、落差感
+         滚动加载更多，图片懒加载
+    - 接口
+        /api/images?page=${n} 支持翻页
+        唯一id  page + index
+        随机图片  高度随机
+    - images 怎么放到两列中？ MVVM
+    数据驱动界面（2列） 奇偶
+    - 加载更多 位于盒子的底部的元素 通过使用 IntersectionObserver
+    观察是否出现在视窗， 性能更好，使用了观察者模式
+    - 为什么使用唯一的key？
+    防止重新渲染
+    - 还可以新增一个下拉刷新
+    react-vant 组件库 配合我们的接口
+    - 组件卸载时，直接使用  observer.disconnect(); 释放资源，防止内存泄漏
+    - key id 下拉刷新
+    - 使用 IntersectionObserver 再次图片懒加载
+- toast 组件封装
+    - 需要自定义，UI组件不满足需求
+    - UI props
+    - JS 显示出来 跨层级通信
+        观察者
+    - mitt eventBus 事件总线
+       - 实例化 mitt()
+       - on（自定义事件名称，callback）
+       - emit （自定义事件的名称，参数）
+       组件通过监听一个自定义事件，实现一个基于事件的组件通信
+## 项目亮点和难点
+- 前端智能
+    - chat 函数
+    - 对各家模型都感兴趣，升级为kimiChat，doubaoChat... 灵活
+        性能、能力、性价比
+        随意切换大模型，通过参数抽象
+    - 文生图
+      - 优化prompt 设计，     
+- 原子css
+    - App.css 里面添加通用样式
+    - 各自模块里module.css 不影响别的组件
+    - lib-flexible 移动端适配
+    - postcss pxtorem 插件 快速还原设计稿
+    - 原子类的css
+        一个元素按功能逻辑拆分成多个类，和原子一样
+        元素的样式就可以由原子类组合而成
+        样式复用的更好，以后几乎可以不用写样式
+- 用户体验优化
+    - 搜索建议，防抖+useMemo 性能优化
+    - 组件粒度划分
+        React.memo + useCallback无状态组件，不重新渲染
+    - 路由懒加载 优化打开速度
+    - 热门推荐
+    - 热门推荐 + 相关商品（产品）
+    - SPA 单页应用 页面不刷新
+    - 骨架屏 不用让用户等待了
+    - 文件上传的preview html5 FileReader
+- 智能生成图片
+    - 产品  
+    冰球社群的宠物智能生成运动员图片
+    社交属性
+    商业价值
+    技术服务
+    coze 工作流 智能编排AI 流程 编程一种
+    - api 调用
+    
+   - 设计工作流
+     - 创建工作流 ani_pic
+       上传宠物照片，生成宠物曲棍球运动员的照片
+     - 代码节点||数据库节点
+       参数校验和逻辑功能，返回运行的结果
+     - 图生成流程
+       - 图片理解插件 计算机视觉
+       - 大模型 特征提取
+       - workflow_id=7533135055209365558
+       - token
+       - coze 图片要先上传到coze中
+           uploadUrl + token + new
+           append(file)
+           拿到file_id
+       - workflowUrl + workflow_id + token
+           工作流需要的参数
+- 语言输入发表文章
+    - 字节的 tts
+    - onMouseDown 按住说话
+    - onMouseUp 松开
+    - BOM html5
+    navigater.mediaDevices.getUserMedia({
+        audio:true
+    })
+    用户隐私，需要授权   getLocation
+
+
+##  项目遇到过什么问题，怎么解决的
+- chat message 遇到 message覆盖问题
+- 闭包陷阱
+    一次事件里面，两次setMessages()
+- 升级瀑布流？
+    - 骨架屏
+    - 奇偶images 两列分配可能有时候会像天残脚一样，不好看，随机
+        两个响应式数组，判断哪一列高度更少，将新得到的img加入那个数组
+    - intersectionObserver 用的两次，重复了，dry 原则 封装？
+        hooks 封装
+- 自定义hooks
+    - useTitle
+    一定要设置
+
+- es6 特性使用
+    tabbar 的高亮
+    - arr.findInddex
+    - str.startsWith
+    - promise
+    瀑布流随机数据生成
+    - Array.from({length:pageSize},(_,i)=>({
+        
+    }))
+- 项目的迭代
+    - 功能由浅入深
+    - chatbot deepseek 简单chat
+    - deepseek-r1 推理模型
+    - 流式输出
+    - 上下文
+    - coze 工作流调用接口
+
+
+## 通用组件开发
+- Loading 
+    - 居中方案
+         position:fixed + trlrb0 + margin auto
+    - React.memo 无状态组件,不重新渲染
+    - animation
+
+
+- AI 功能
+    智能前端（http 请求）+ 工作流 coze api + ai 全新工作链路
+    + 自动化Agent
+
+
+
+
+
