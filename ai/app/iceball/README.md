@@ -1,0 +1,30 @@
+# AI 应用之冰球
+
+## 前端应用 vue3
+- 活动性应用
+  冰球协会，上传宠物图片，生成冰球运动员的形象照片。
+  有趣，分享到朋友圈。
+- vue 主要收集表单数据，上传图片等
+- ai能力主要通过调用 coze 工作流的api实现
+
+flex-wrap: wrap; 是 Flexbox（弹性盒子布局） 中的一个重要属性，用于控制当子元素（flex items）在主轴上放不下时，是否允许换行。
+
+## 数据业务
+- 立即显示上传文件的预览图
+  - 好的用户体验，图片可能很大，上传需要些时间，预览图可以让用户知道在干什么
+  - 数据状态（值和改变）
+    img ：src=“imgPreviewRef”
+    ref="imgPreviewRef"
+    filereader readasDataURL onload 读完了，赋值给imgPreviewRef
+    google 推出了base64 编码，将图片转换为字符串，方便上传
+
+## AI 应用业务开发
+- 数据状态业务 imgUrl  生成中... 生成成功
+- coze 工作流api 调用  看官方文档
+- http post 请求业务
+  - FormData
+  - fetch 发送请求
+    headers Authorization Bearer 
+    body  formData.append('file')
+  - code 0 成功 否则 ret.msg 错误消息
+  - data 响应数据 id
