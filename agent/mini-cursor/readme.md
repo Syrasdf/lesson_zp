@@ -54,7 +54,6 @@ AI Agent 全栈开发
     [read,write,exec]   
 -  pnpm i @langchain/openai  适配了常见模型
     
-https://dashscope.aliyuncs.com/compatible-mode/v1
 
 
 
